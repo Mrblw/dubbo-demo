@@ -7,12 +7,17 @@ dubbo:
     check: false
   protocol:
     name: dubbo
-    port: 30003
+    port: 30004
   monitor:
     protocol: register
   consumer:
     check: true
     timeout: 15000
+  provider:
+    # 4种默认轮询机制
+    #  Random  RoundRobin  LeastActive ConsistentHash
+    loadbalance: Random
+    weight: 200
 
 server:
-  port: 8080
+  port: 8082
