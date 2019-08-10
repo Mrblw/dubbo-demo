@@ -1,6 +1,7 @@
 package com.dubbo.consumer.controller;
 
 import com.dubbo.consumer.service.ProductService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +24,14 @@ public class ProductController {
      * @param a
      * @return
      */
+    @HystrixCommand(fallbackMethod = "hiError")
     @RequestMapping("/add")
     public String getCost(int a){
         return "该产品总共消费 ："+productService.getCost(a);
+    }
+
+    public String hiError(int a) {
+        return a+"";
     }
 
 }
